@@ -6,7 +6,7 @@ Collection of Splunking Tools and Resources
 
 - [SPL Examples](#SPL-Examples)
 - [Sysmon Monitoring](#Sysmon-Monitoring)
-- [Splunk Hunting/IOCs](#Splunk-Hunting-&-IOCs)
+- [Splunk Hunting and IOCs](#Splunk-Hunting-and-IOCs)
 - [Threat Intelligence Applications](#Threat-Intelligence-Applications)
 - [Document Resources](#Document-Resources)
 - [Online Resources](#Online-Resources)
@@ -165,7 +165,7 @@ sysmon.exe -i -h md5 -l -n
 - [sysmonconfig-export.xml](/docs/sysmonconfig-export.xml)
 - [SwiftOnSecurity Sysmon Configuration File](https://github.com/SwiftOnSecurity/sysmon-config) 
 
-## Splunk Hunting & IOCs
+## Splunk Hunting and IOCs
 
 - Hashes
 - IP Addresses
