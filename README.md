@@ -5,8 +5,8 @@ Collection of Splunking Tools and Resources
 ## Table of Contents
 
 - [SPL Examples](#SPL-Examples)
-- [Sysmon Monitoring](#Sysmon-Monitoring)
 - [Splunk Hunting and IOCs](#Splunk-Hunting-and-IOCs)
+- [Sysmon Monitoring](#Sysmon-Monitoring)
 - [Threat Intelligence Applications](#Threat-Intelligence-Applications)
 - [Document Resources](#Document-Resources)
 - [Online Resources](#Online-Resources)
@@ -148,22 +148,6 @@ index=main sourcetype=vmstat
 | where memused>80
 ```
 
-## Sysmon Monitoring
-
-### Install Sysinternals Sysmon Service Driver, Use MD4, Log Modules & Network Connections:
-
-```
-sysmon.exe -i -h md5 -l -n
-```
-
-### SysInternals
-
-- [Live Sysinternals](https://live.sysinternals.com/)
-
-### Sysmon Configuration File Template
-
-- [sysmonconfig-export.xml](/docs/sysmonconfig-export.xml)
-- [SwiftOnSecurity Sysmon Configuration File](https://github.com/SwiftOnSecurity/sysmon-config) 
 
 ## Splunk Hunting and IOCs
 
@@ -192,6 +176,23 @@ sysmon.exe -i -h md5 -l -n
 - Unusual privileged account activity
 - HTML Response Sizes
 
+## Sysmon Monitoring
+
+### Install Sysinternals Sysmon Service Driver, Use MD4, Log Modules & Network Connections:
+
+```
+sysmon.exe -i -h md5 -l -n
+```
+
+### SysInternals
+
+- [Live Sysinternals](https://live.sysinternals.com/)
+
+### Sysmon Configuration File Template
+
+- [sysmonconfig-export.xml](/docs/sysmonconfig-export.xml)
+- [SwiftOnSecurity Sysmon Configuration File](https://github.com/SwiftOnSecurity/sysmon-config) 
+
 ## Threat Intelligence Applications
 
 - [Splunk ThreatHunting App](https://splunkbase.splunk.com/app/4305/)
@@ -204,8 +205,19 @@ sysmon.exe -i -h md5 -l -n
 - [Dragos Threat Intelligence](https://splunkbase.splunk.com/app/5232/)
 
 ## Document Resources
-- [Splunk Quick Reference Guide](/docs/splunk-quick-reference-guide.pdf)
 
+- [Splunk Quick Reference Guide](/docs/splunk-quick-reference-guide.pdf)
+- [Operationalizing Threat Intelligence Using Splunk Enterprise Security](/docs/operationalizing-threat-intelligence-using-splunk-enterprise-security.pdf)
+- [Splunk IOCs: Indicators of Crap Presentation](/docs/SEC1111.pdf)
+- [Windows LOG-MD ATT&CK Cheat Sheet](/docs/Windows_LOG-MD_ATT&CK_Cheat_Sheet_ver_Sept_2018.pdf)
+- [Windows ATT&CK Logging Cheat Sheet](/docs/Windows+ATT&CK_Logging+Cheat+Sheet_ver_Sept_2018.pdf)
+- [Windows Logging Cheat Sheet](/docs/Windows+Logging+Cheat+Sheet_ver_Feb_2019.pdf)
+- [Windows Advanced Logging Cheat Sheet](/docs/Windows+Advanced+Logging+Cheat+Sheet_ver_Feb_2019_v1.2.pdf)
+- [Windows File Auditing Cheat Sheet](/docs/Windows+File+Auditing+Cheat+Sheet+ver+Nov+2017.pdf)
+- [Windows PowerShell Logging Cheat Sheet](/docs/Windows+PowerShell+Logging+Cheat+Sheet+ver+Sept+2018+v2.2.pdf)
+- [Windows Registry Auditing Cheat Sheet](/docs/Windows+Registry+Auditing+Cheat+Sheet+ver+Aug+2019.pdf)
+- [Windows Splunk Logging Cheat Sheet](/docs/Windows+Splunk+Logging+Cheat+Sheet+v2.22.pdf)
+- [Windows Sysmon Logging Cheat Sheet](/docs/Windows+Sysmon+Logging+Cheat+Sheet_Jan_2020.pdf)
 
 ## Online Resources
 
