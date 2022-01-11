@@ -2,6 +2,8 @@
 
 Collection of Splunking Tools and Resources
 
+![Splunk Logo](/logo.png)
+
 ## Table of Contents
 
 - [SPL Examples](#SPL-Examples)
@@ -10,7 +12,6 @@ Collection of Splunking Tools and Resources
 - [Threat Intelligence Applications](#Threat-Intelligence-Applications)
 - [Document Resources](#Document-Resources)
 - [Online Resources](#Online-Resources)
-
 
 ## SPL Examples
 
@@ -148,7 +149,6 @@ index=main sourcetype=vmstat
 | where memused>80
 ```
 
-
 ## Splunk Hunting and IOCs
 
 - Hashes
@@ -207,6 +207,7 @@ sysmon.exe -i -h md5 -l -n
 ## Document Resources
 
 - [Splunk Quick Reference Guide](/docs/splunk-quick-reference-guide.pdf)
+- [Splunk Search Cheat Sheet](/docs/Splunk-Search-Cheatsheet.pdf)
 - [Operationalizing Threat Intelligence Using Splunk Enterprise Security](/docs/operationalizing-threat-intelligence-using-splunk-enterprise-security.pdf)
 - [Splunk IOCs: Indicators of Crap Presentation](/docs/SEC1111.pdf)
 - [Windows LOG-MD ATT&CK Cheat Sheet](/docs/Windows_LOG-MD_ATT&CK_Cheat_Sheet_ver_Sept_2018.pdf)
