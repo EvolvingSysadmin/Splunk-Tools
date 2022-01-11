@@ -1,29 +1,19 @@
 # Splunk Tools
 Collection of Splunking Tools and Resources
 
-__ThreatHunting Application__
-  * [Splunk ThreatHunting App](https://splunkbase.splunk.com/app/4305/)
-  * [ThreatHunting Resources](https://github.com/olafhartong/ThreatHunting)
-  * [ThreatHunting Guide](https://www.linkedin.com/pulse/attckized-splunk-kirtar-oza-cissp-cisa-ms-/)
+## Table of Contents
+- [Splunk Search Processing Language Examples](#SPL-Examples)
+- [Useful Splunk Applications](#Useful-Splunk-Applications)
 
+## SPL Examples
 
-__SPL Examples__
-    * [Basic SPL Examples](/docs/basic-spl.md)
-
-https://medium.com/adarma-tech-blog/accelerating-forensic-triage-with-splunk-59f2112293a5
-
-https://www.digitalforensics.com/blog/splunk-for-ir-and-forensics/
-
-http://www.irongeek.com/i.php?page=videos/bsidescleveland2016/204-splunk-for-ir-and-forensics-tony-iacobelli
-
-
-
-__Finding New Local Admin Accounts__
+### Find Windows Security Event Code Info
 ```
 index=win_servers sourcetype=windows:security
 | table EventCode
 ```
 
+### Find New Local Admin Accounts
 ```
  index=win_servers sourcetype=windows:security EventCode=4720 OR (EventCode=4732 Administrators)
  | transaction Security_ID maxspan=180m
@@ -31,10 +21,10 @@ index=win_servers sourcetype=windows:security
  | table _time, EventCode, Security_ID, SamAccountName
 ```
 Note: 
-  4720: new user created
-  4732: user added to security group
+  - 4720: new user created
+  - 4732: user added to security group
 
-__Detecting Network and Port Scanning__
+### Detect Network and Port Scanning
 ```
 index=* sourcetype=firewall*
 | stats dc(dest_port) as num_dest_port dc(dest_ip) as num_dest_ip by src_ip
@@ -42,11 +32,13 @@ index=* sourcetype=firewall*
 ```
 Note: internal scanning > external scanning
 
-__Interactive Logins from Service Accounts__
+### Find Interactive Logins from Service Accounts
 ```
 index=systems sourcetype=audit_logs user=svc_*
 | table _time dest user
 ```
+
+### Find Outlier Interactive Logins
 ```
 index=systems sourcetype=audit_logs user=svc_*
 | stats earliest(_time) as earliest latest(_time) as latest by user, dest
@@ -55,75 +47,100 @@ index=systems sourcetype=audit_logs user=svc_*
 | where isOutlier=1 
 ```
 
-__Detecting Brute Force Attacks__  
+### Detect Bruce Force Attacks
 ```
 index=* sourcetype=win*security user=* user!=""
 | stats count(eval(action="success")) as successes count(eval(action="failure")) as failures by user, ComputerName
 | where successes>0 AND failures>100
 ```
 
-__Basic TOR Traffic Detection__
+### Basic TOR Detection
 ```
 index=network sourcetype=firewall_data app=tor src_ip=*
 | table _time src_ip src_port dest_ip dest_port bytes app
 ```
 
-__Detecting Recurring Malware on Host__
+### Detect Recurring Malware on Host
 ```
 index=* sourcetype=symantec:* 
 | stats count range(_time) as TimeRange by Risk_Name, Computer_Name
 | where TimeRange>1800
 | eval TimeRange_In_Hours = round(TimeRange/3600,2), TimeRange_In_Days = round (TimeRange/3600/24,2)
-
 ```
 
-__Checking for Windows Audit Log Tampering__
+### Detect Windows Audit Log Tampering
 ```
 index=* (sourcetype=wineventlog AND (EventCode=1102 OR EventCode=1100)) OR (sourcetype=wineventlog AND EventCode=104)
 | stats count by _time EventCode Message sourcetype host
 ```
-Note: log change events=1102 (application log cleared), 1100 (event logging service shutdown), 104 (application log cleared)
+Note: 
+  - 1102: security log cleared
+  - 1100: event logging service shutdown
+  - 104: event log cleared
 
-__Finding Large Web Uploads__
+### Find Large Web Uploads
 ```
 index=* sourcetype=websense* 
 | where bytes_out > 35000000
 | table _time src_ip bytes* uri
 ```
 
-__Identifying Web Users by Country__
+### List Web Users by Country
 ```
 index=web sourcetype=access_combined
 | iplocation clientip
 | stats dc(clientip) by Country
 ```
+
+### List Web Users by Country on Map
 ```
 index=web sourcetype=access_combined
 | iplocation clientip
 | geostats dc(clientip) by Country
 ```
 
-__Detecting Unencrypted Web Communications__
+### Detect Unencrypted Web Communications
 ```
 index=* sourcetype=firewall_data dest_port!=443 app=workday*
 | table _time user app bytes* src_ip dest_ip dest_port
 ```
 
-__Log Volume Trending__
+### Show Log Volume Trending
 ```
 | tstats prestats=t count WHERE index=apps by host _time span=1m
 | timechart partial=f span=1m count by host limit=0
 ```
 
-__Measuring Memory Utilization by Host__
+### Measure Memory Utilization by Host Chart
 ```
 index=main sourcetype=vmstat
 | timechart max(memUsedPct) by host
 ```
+
+### Show Hosts with High Memory Utilization
 ```
 index=main sourcetype=vmstat
 | stats max(memUsedPct) as memused by host
 | where memused>80
 ```
 
-testing git push
+## Useful Splunk Applications
+
+
+
+
+
+__ThreatHunting Application__
+  * [Splunk ThreatHunting App](https://splunkbase.splunk.com/app/4305/)
+  * [ThreatHunting Resources](https://github.com/olafhartong/ThreatHunting)
+  * [ThreatHunting Guide](https://www.linkedin.com/pulse/attckized-splunk-kirtar-oza-cissp-cisa-ms-/)
+
+
+
+
+https://medium.com/adarma-tech-blog/accelerating-forensic-triage-with-splunk-59f2112293a5
+
+https://www.digitalforensics.com/blog/splunk-for-ir-and-forensics/
+
+http://www.irongeek.com/i.php?page=videos/bsidescleveland2016/204-splunk-for-ir-and-forensics-tony-iacobelli
+
