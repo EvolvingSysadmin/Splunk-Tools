@@ -2,7 +2,7 @@
 
 Collection of Splunking Tools and Resources
 
-![Splunk Logo](/logo.png)
+![Splunk Logo](/splunk-logo.png)
 
 ## Table of Contents
 
