@@ -222,6 +222,10 @@ sysmon.exe -i -h md5 -l -n
 
 ## Online Resources
 
+- [RegEx 101](https://regex101.com/)
+- [Mockaroo fake data generator](https://www.mockaroo.com/)
+- [Crontab Guru for Cron Expressions](https://crontab.guru/)
+- [whois](https://whois.domaintools.com/)
 - [Windows Event Logs Defined](https://www.myeventlog.com/)
 - [Windows Security Log Events](https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/Default.aspx)
 - [Windows Logging Cheat Sheets](https://www.malwarearchaeology.com/cheat-sheets)
