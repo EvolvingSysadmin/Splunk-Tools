@@ -150,31 +150,32 @@ index=main sourcetype=vmstat
 ```
 
 ## Splunk Hunting and IOCs
+Search for changes related to the following items/IOCs during threat-hunting/incident response:
 
-- Hashes
-- IP Addresses
+- Applications Using Wrong Ports
+- Coin Address
+- DNS Anomolies
 - Domain Names
-- Mutex Names
-- URL
+- Email Addresses
+- Email Subject Lines
 - File Names
 - File Path
-- Email Addresses
-- Usernames
+- Geolocation
+- Hashes
+- HTML Response Sizes
+- Increased network usage
+- IP Addresses
+- MAC Addresses
+- Mutex Names
 - Passwords
 - Registry Keys
 - Registry Values
-- Email Subject Lines
-- TLS Certificate Serial Numbers
 - Service Name
-- Coin Address
-- MAC Addresses
 - Strings
-- Geolocation
-- DNS Anomolies
-- Applications Using Wrong Ports
-- Increased network usage
+- TLS Certificate Serial Numbers
 - Unusual privileged account activity
-- HTML Response Sizes
+- URL
+- Usernames
 
 ## Sysmon Monitoring
 
