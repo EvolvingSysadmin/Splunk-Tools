@@ -1,6 +1,6 @@
 # Splunk Tools
 
-Collection of Splunking Tools and Resources
+Collection of Splunking Tools, SPL Code and Resources
 
 ![Splunk Logo](/splunk-logo.png)
 
