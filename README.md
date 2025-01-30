@@ -15,6 +15,13 @@ Collection of Splunking Tools, SPL Code and Resources
 
 ## SPL Examples
 
+### List all Sourcetypes
+
+```
+index="botsv3" 
+|  stats count by sourcetype
+```
+
 ### Find Windows Security Event Code Info
 
 ```
@@ -148,6 +155,189 @@ index=main sourcetype=vmstat
 | stats max(memUsedPct) as memused by host
 | where memused>80
 ```
+
+### Show Brute Forcing Attempts
+
+```
+sourcetype=stream:http dest=”<IP address receiving the request>” http_method=POST
+```
+
+```
+sourcetype=stream:http <input IP or domain> http_method=POST
+|stats count BY src, form_data
+```
+
+### Find Executable
+
+```
+index="botsv1" dest_ip="192.168.250.70" sourcetype="stream:http" "multipart/form-data"
+```
+
+### Show MD5 of Executable
+
+```
+index="botsv1" 3791.exe md5 sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" CommandLine="3791.exe"
+```
+
+### Find Brute Force Password
+
+```
+sourcetype=stream:http <domain or IP> http_method=POST
+|stats count BY src, form_data, timestamp
+```
+
+### Find Specific Password by Trial and Error
+
+```
+source=stream:http <domain or IP> http_method=POST clocks
+| stats count BY src, form_data
+```
+
+### Find Correct Password
+See if there are successful logins from another IP
+
+```
+index=botsv1 sourcetype=stream:http form_data=*username*passwd*
+| stats count BY src, form_data, timestamp
+```
+
+### Find Average Character Length of Password Attempts
+
+```
+index="botsv1" sourcetype=stream:http form_data=*username*passwd*
+| rex field=form_data "&passwd=(?<password>[\w\d]+)&"
+| eval lenpword=len(password)
+| stats avg(lenpword) as avglen
+```
+
+### Time Between Brute Force Password Found and Login
+
+```
+index="botsv1" sourcetype=stream:http form_data=*username*passwd*
+| rex field=form_data "&passwd=(?<password>[\w\d]+)&"
+| search password = "batman"
+```
+
+### Find Number of Passwords Used in Brute Force Attempt
+
+```
+index="botsv1" sourcetype=stream:http form_data=*username*passwd*
+| rex field=form_data "&passwd=(?<password>[\w\d]+)&"
+```
+
+### Find IP for Hostname
+
+```
+index="botsv1" we8105desk
+| stats count by src_ip
+```
+
+### See What Domains Malware Contacted
+
+```
+index="botsv1" src_ip="192.168.250.100" source="stream:dns" NOT query=*.local AND NOT query=*.arpa AND NOT query=*.microsoft.com AND query=*.*
+| table _time, query
+| sort by _time desc
+```
+
+### Find VBS Malware
+
+```
+index="botsv1" sourcetype="xmlwineventlog:microsoft-windows-sysmon/operational" *.vbs
+| eval cmdlen=len(CommandLine)
+| table _time,CommandLine, cmdlen
+```
+
+### Find USB
+
+```
+index="botsv1" sourcetype=winregistry friendlyname
+```
+
+### Find File Server Connections
+
+```
+index="botsv1" sourcetype="stream:smb" src_ip=192.168.250.100
+| stats count by path
+```
+
+### Find Number of PDFs Encrypted on File Server
+
+```
+index="botsv1" .pdf 
+| stats dc(Relative_Target_Name)
+```
+
+### Find Number of Encrypted .txt Files for a Specific User
+
+```
+index="botsv1" sourcetype="xmlwineventlog:microsoft-windows-sysmon/operational" .txt bob.smith TargetFilename="C:\\Users\\bob.smith.WAYNECORPINC\\Desktop\\*"
+| stats dc(TargetFilename)
+```
+
+### Find Visited Site With Specific Keyword
+
+```
+index=botsv2 sourcetype="stream:http" src_ip="10.0.2.101" http_method=GET
+| dedup site
+| search *beer*
+```
+
+### Count Number of IP addresses that Accessed Domain
+
+```
+index=botsv2 "www.brewertalk.com"
+| stats count by src_ip
+| sort -count
+| head 5
+```
+
+### Count of URI Paths Accessed by IP
+
+```
+index=botsv2 src_ip=45.77.65.211
+| stats values(form_data) count by uri_path
+```
+
+### Searching for XSS 
+
+```
+index=botsv2 sourcetype="stream:http" "<script>" 
+| dedup form_data
+| table _time form_data src_ip
+```
+
+### Using Splunk URL Decode
+
+```
+index=botsv2 sourcetype="stream:http" "<script>" 
+| dedup form_data 
+| eval decoded=urldecode(form_data) 
+| table _time decoded src_ip
+```
+
+### Search for XSS
+
+```
+Search for <script> html tags
+```
+
+```
+index=botsv2 sourcetype="stream:http" "kevin" "<script>" 
+```
+
+### Search for CSRF Tokens
+
+Read More: https://portswigger.net/web-security/csrf/tokens
+
+### MB Conversion
+
+```
+index=botsv3 earliest=0 frothlywebcode "*.tar.gz" operation="REST.PUT.OBJECT" http_status=200 
+| table object_size 
+| eval mb=round(object_size/1024/1024,2)
+```
+
 
 ## Splunk Hunting and IOCs
 Search for changes related to the following items/IOCs during threat-hunting/incident response:
