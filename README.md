@@ -364,12 +364,12 @@ Search for changes related to the following items/IOCs during threat-hunting/inc
 - Strings
 - TLS Certificate Serial Numbers
 - Unusual privileged account activity
-- URL
+- URLs
 - Usernames
 
 ## Sysmon Monitoring
 
-### Install Sysinternals Sysmon Service Driver, Use MD4, Log Modules & Network Connections:
+### Install Sysinternals Sysmon Service Driver, Use MD5, Log Modules & Network Connections:
 
 ```
 sysmon.exe -i -h md5 -l -n
