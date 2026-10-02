@@ -1,0 +1,57 @@
+site_name: Splunk Tools
+site_url: https://splunk.ryanheavican.com/
+site_description: "SPL searches, detections, and threat-hunting references for Splunk"
+site_author: Ryan Heavican
+repo_url: https://github.com/EvolvingSysadmin/Splunk-Tools
+repo_name: EvolvingSysadmin/Splunk-Tools
+edit_uri: edit/main/docs/
+copyright: Copyright &copy; Ryan Heavican
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.details
+
+nav:
+  - Home: index.md
+  - SPL Searches:
+      - searches/index.md
+      - Detections: searches/detections.md
+      - Web and HTTP Analysis: searches/web-analysis.md
+      - Investigations (BOTS): searches/investigations.md
+  - Threat Hunting and IOCs: hunting-and-iocs.md
+  - Sysmon: sysmon.md
+  - Resources: resources.md
